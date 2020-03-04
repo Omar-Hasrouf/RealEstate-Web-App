@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PropertyRepository")
+ * @UniqueEntity("title")
  */
 class Property
 {
@@ -24,47 +27,56 @@ class Property
     private $id;
 
     /**
+     * @Assert\Length(min=5, max=255)
+     * @Assert\Regex("/^[a-zA-Z][a-zA-Z0-9]/")
      * @ORM\Column(type="string", length=255)
      */
     private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\Regex("/^[a-zA-Z][a-zA-Z0-9]/")
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(min=10, max=400)
      */
     private $surface;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(min=1, max=15)
      */
     private $rooms;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(min=1, max=10)
      */
     private $bedrooms;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(min=1, max=100)
      */
     private $floor;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(min=1500, max=900000)
      */
     private $price;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $heat;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex("/^[a-zA-Z][a-zA-Z]/")
      */
     private $city;
 
@@ -75,6 +87,7 @@ class Property
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex("/^[0-9]{5}$/")
      */
     private $postal_code;
 
