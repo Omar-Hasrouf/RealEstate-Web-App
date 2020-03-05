@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Property;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 
 /**
  * @method Property|null find($id, $lockMode = null, $lockVersion = null)
@@ -20,13 +21,12 @@ class PropertyRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Property[]
+     * @return Query
      */
-    public function findAllNotSold(): array
+    public function findAllNotSoldQuery(): Query
     {
         return $this->findNotSoldQuery()
-                    ->getQuery()
-                    ->getResult();
+                    ->getQuery();
     }
 
     /**
