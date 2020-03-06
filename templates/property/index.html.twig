@@ -3,8 +3,29 @@
 
 
 {% block body %}
+    <div class="jumbotron">
+        <div class="container">
+            <h3>Recherche</h3>
+            <hr/>
+            {{ form_start(form) }}
+            <div class="form-row align-items-end">
+                <div class="col">
+                    {{ form_row(form.maxPrice) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.minSurface) }}
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <button class="btn btn-primary">Rechercher</button>
+                    </div>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
     <div class="container mt-4">
-        <h1>Voir tous nos Biens</h1>
+        <h1>Voir tous nos Biens</h1><hr/>
         <div class="row">
             {% for property in properties %}
                 <div class="col-md-4">
