@@ -4,56 +4,76 @@
 
 {% block body %}
 
-<div class="jumbotron">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                {# Contiendra plus tard les images #}
-            </div>
-            <div class="col-md-4">
-                <h1>{{ property.title }}</h1>
-                <h2>{{ property.rooms }} pièces - {{ property.surface }} m<sup>2</sup></h2>
-                <div class="text-primary" style="font-size:4rem; font-weight:bold;">{{ property.formattedPrice }} €</div>
-                <a href="#" class="btn btn-dark">Contacter l'agence</a>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="container mt-4">
-    <p>
-        {{ property.description | nl2br }}
-    </p>
-    <div class="row">
-        <div class="col-md-8">
-            {# Infos - carctéristiques techniques(surface, chauffage) #}
-            <h2>Caratéristiques</h2>
-            <table class="table table-striped">
-                <tr>
-                    <td class="font-weight-bold">Surface habitable</td>
-                    <td>{{ property.surface }} m<sup>2</sup></td>
-                </tr>
-                <tr>
-                    <td class="font-weight-bold">Pièces</td>
-                    <td>{{ property.rooms }}</td>
-                </tr>
-                <tr>
-                    <td class="font-weight-bold">Chambre</td>
-                    <td>{{ property.bedrooms }}</td>
-                </tr>
-                <tr>
-                    <td class="font-weight-bold">Etage</td>
-                    <td>{{ property.floor }}</td>
-                </tr>
-                <tr>
-                    <td class="font-weight-bold">Chauffage</td>
-                    <td>{{ property.heatType }}</td>
-                </tr>
-            </table>
-        </div>
-        <div class="col-md-4">
-            {# Balcon, Jacuzi Asceneur#}
-            <h2>Spécificités</h2>
-        </div>
-    </div>
-</div>
+	<div class="jumbotron">
+		<div class="container">
+			<div class="row">
+				<div
+					class="col-md-8">
+					{# Contiendra plus tard les images #}
+					{% if property.filename %}
+						<img src="{{ vich_uploader_asset(property, 'imageFile') | imagine_filter('medium') }}" alt="card-img-top" style="width:100%;height:auto;">
+					{% else %}
+						<img src="{{ '/images/properties/Property.jpg' | imagine_filter('medium') }}" alt="card-img-top" style="width:100%;height:auto;">
+					{% endif %}
+				</div>
+				<div class="col-md-4">
+					<h1>{{ property.title }}</h1>
+					<h2>{{ property.rooms }}
+						pièces -
+						{{ property.surface }}
+						m<sup>2</sup>
+					</h2>
+					<div class="text-primary" style="font-size:4rem; font-weight:bold;">{{ property.formattedPrice }}
+						€</div>
+					<a href="#" class="btn btn-dark">Contacter l'agence</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container mt-4">
+		<p>
+			{{ property.description | nl2br }}
+		</p>
+		<div class="row">
+			<div
+				class="col-md-8">
+				{# Infos - carctéristiques techniques(surface, chauffage) #}
+				<h2>Caratéristiques</h2>
+				<table class="table table-striped">
+					<tr>
+						<td class="font-weight-bold">Surface habitable</td>
+						<td>{{ property.surface }}
+							m<sup>2</sup>
+						</td>
+					</tr>
+					<tr>
+						<td class="font-weight-bold">Pièces</td>
+						<td>{{ property.rooms }}</td>
+					</tr>
+					<tr>
+						<td class="font-weight-bold">Chambre</td>
+						<td>{{ property.bedrooms }}</td>
+					</tr>
+					<tr>
+						<td class="font-weight-bold">Etage</td>
+						<td>{{ property.floor }}</td>
+					</tr>
+					<tr>
+						<td class="font-weight-bold">Chauffage</td>
+						<td>{{ property.heatType }}</td>
+					</tr>
+				</table>
+			</div>
+			<div
+				class="col-md-4">
+				{# Balcon, Jacuzi Asceneur#}
+				<h2>Spécificités</h2>
+				<ul class="list-group">
+					{% for option in property.options %}
+						<li class="list-group-item">{{ option.name }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
 {% endblock %}

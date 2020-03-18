@@ -30,3 +30,6 @@ services:
     #   tags: ['controller.service_arguments']
     #   arguments:
     #       $twig: '@twig'
+    App\Listener\ImageCacheSubscriber:
+        tags:
+            {name: doctrine.event_subscriber}
