@@ -3,9 +3,18 @@
 {% block title property.title %}
 
 {% block body %}
-
 	<div class="jumbotron">
 		<div class="container">
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success">
+					{{ message }}
+				</div>
+			{% endfor %}
+			{% if not form.vars.valid %}
+				<div class="alert alert-danger">
+					Erreur au niveau de remplissage des champs.
+				</div>
+			{% endif %}
 			<div class="row">
 				<div
 					class="col-md-8">
@@ -26,6 +35,22 @@
 					<div class="text-primary" style="font-size:4rem; font-weight:bold;">{{ property.formattedPrice }}
 						€</div>
 					<a href="#" class="btn btn-dark">Contacter l'agence</a>
+					<div id="contatForm" class="mt-4">
+						{{ form_start(form) }}
+						<div class="row">
+							<div class="col">{{ form_row(form.firstname) }}</div>
+							<div class="col">{{ form_row(form.lastname) }}</div>
+						</div>
+						<div class="row">
+							<div class="col">{{ form_row(form.phone) }}</div>
+							<div class="col">{{ form_row(form.email) }}</div>
+						</div>
+						{{ form_rest(form) }}
+						<div class="form-group">
+							<button class="btn btn-primary">Envoyer</button>
+						</div>
+						{{ form_end(form) }}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -64,8 +89,7 @@
 					</tr>
 				</table>
 			</div>
-			<div
-				class="col-md-4">
+			<div class="col-md-4">
 				{# Balcon, Jacuzi Asceneur#}
 				<h2>Spécificités</h2>
 				<ul class="list-group">
